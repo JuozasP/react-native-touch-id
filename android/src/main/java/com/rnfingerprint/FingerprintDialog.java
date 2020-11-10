@@ -36,6 +36,7 @@ public class FingerprintDialog extends DialogFragment implements FingerprintHand
     private String sensorDescription = "";
     private String sensorErrorDescription = "";
     private String errorText = "";
+    private String genericError = "";
 
     @Override
     public void onAttach(Context context) {
@@ -132,7 +133,7 @@ public class FingerprintDialog extends DialogFragment implements FingerprintHand
         }
 
         if (config.hasKey("genericError")) {
-            this.errorText = config.getString("genericError");
+            this.genericError = config.getString("genericError");
         }
 
         if (config.hasKey("title")) {
@@ -180,7 +181,7 @@ public class FingerprintDialog extends DialogFragment implements FingerprintHand
         if(errorCode == FINGERPRINT_ERROR_LOCKOUT){
             this.mFingerprintError.setText("Per didelis kiekis nepavykusių bandymų. Bandykite vėliau.");
         }else {
-            this.mFingerprintError.setText(this.errorText);
+            this.mFingerprintError.setText(this.genericError);
         }
         this.mFingerprintImage.setColorFilter(this.imageErrorColor);
         this.mFingerprintSensorDescription.setText(this.sensorErrorDescription);
