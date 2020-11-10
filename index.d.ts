@@ -50,6 +50,10 @@ declare module 'react-native-touch-id' {
        * **iOS only** - By default set to false. If set to true, will allow use of keypad passcode.
        */
       passcodeFallback?: boolean;
+      /**
+       * **currently Android only** - replace deneric error text on fail.
+       */
+      genericError?: string;
     }
     /**
      * `isSupported` error code

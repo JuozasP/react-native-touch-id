@@ -38,8 +38,7 @@ public class FingerprintDialog extends DialogFragment implements FingerprintHand
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-        this.mFingerprintHandler = new FingerprintHandler(context, this, config.getString("genericError"));
+        this.mFingerprintHandler = new FingerprintHandler(context, this);
     }
 
     @Override
@@ -129,6 +128,11 @@ public class FingerprintDialog extends DialogFragment implements FingerprintHand
         if (config == null) {
             return;
         }
+
+        if (config.hasKey("errorText")) {
+            this.mFingerprintHandler.setGenericError(errorText);
+        }
+
 
         if (config.hasKey("title")) {
             this.dialogTitle = config.getString("title");

@@ -14,12 +14,15 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
     private final FingerprintManager mFingerprintManager;
     private final Callback mCallback;
-    private String genericErrorValue = ''
+    private String genericErrorValue = "";
 
-    public FingerprintHandler(Context context, Callback callback, String genericError) {
+    public FingerprintHandler(Context context, Callback callback) {
         mFingerprintManager = context.getSystemService(FingerprintManager.class);
-        genericErrorValue = genericError
         mCallback = callback;
+    }
+
+    public void setGenericError(String genericError) {
+        genericErrorValue = genericError;
     }
 
     public void startAuth(FingerprintManager.CryptoObject cryptoObject) {
