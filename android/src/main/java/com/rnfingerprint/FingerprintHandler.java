@@ -14,9 +14,11 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
     private final FingerprintManager mFingerprintManager;
     private final Callback mCallback;
+    private String genericErrorValue = ''
 
-    public FingerprintHandler(Context context, Callback callback) {
+    public FingerprintHandler(Context context, Callback callback, String genericError) {
         mFingerprintManager = context.getSystemService(FingerprintManager.class);
+        genericErrorValue = genericError
         mCallback = callback;
     }
 
@@ -40,7 +42,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
     @Override
     public void onAuthenticationFailed() {
-        mCallback.onError("Not recognized. Try again.", FingerprintAuthConstants.AUTHENTICATION_FAILED);
+        mCallback.onError(genericErrorValue, FingerprintAuthConstants.AUTHENTICATION_FAILED);
     }
 
     @Override
