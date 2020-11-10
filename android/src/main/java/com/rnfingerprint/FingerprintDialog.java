@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.facebook.react.bridge.ReadableMap;
 
+import static android.hardware.fingerprint.FingerprintManager.FINGERPRINT_ERROR_LOCKOUT;
+
 public class FingerprintDialog extends DialogFragment implements FingerprintHandler.Callback {
 
     private FingerprintManager.CryptoObject mCryptoObject;
@@ -130,7 +132,7 @@ public class FingerprintDialog extends DialogFragment implements FingerprintHand
         }
 
         if (config.hasKey("genericError")) {
-            this.mFingerprintHandler.setGenericError(config.getString("genericError"));
+            this.errorText = config.getString("genericError");
         }
 
         if (config.hasKey("title")) {
@@ -175,7 +177,11 @@ public class FingerprintDialog extends DialogFragment implements FingerprintHand
 
     @Override
     public void onError(String errorString, int errorCode) {
-        this.mFingerprintError.setText(errorString);
+        if(errorCode == FINGERPRINT_ERROR_LOCKOUT){
+            this.mFingerprintError.setText("Per didelis kiekis nepavykusių bandymų. Bandykite vėliau.");
+        }else {
+            this.mFingerprintError.setText(this.errorText);
+        }
         this.mFingerprintImage.setColorFilter(this.imageErrorColor);
         this.mFingerprintSensorDescription.setText(this.sensorErrorDescription);
     }
