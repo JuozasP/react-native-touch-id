@@ -6,6 +6,8 @@ import android.os.Build;
 import android.content.Context;
 import android.os.CancellationSignal;
 
+import static android.hardware.fingerprint.FingerprintManager.FINGERPRINT_ERROR_LOCKOUT;
+
 @TargetApi(Build.VERSION_CODES.M)
 public class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
 
@@ -38,8 +40,8 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     @Override
     public void onAuthenticationError(int errCode,
                                       CharSequence errString) {
-        if (!selfCancelled) {
-            mCallback.onError(errString.toString(), errCode);
+        if (!selfCancelled && errCode == FINGERPRINT_ERROR_LOCKOUT) {
+            mCallback.onError("Per didelis kiekis nepavykusių bandymų. Bandykite vėliau.", errCode);
         }
     }
 

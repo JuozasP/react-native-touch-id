@@ -129,10 +129,9 @@ public class FingerprintDialog extends DialogFragment implements FingerprintHand
             return;
         }
 
-        if (config.hasKey("errorText")) {
-            this.mFingerprintHandler.setGenericError(errorText);
+        if (config.hasKey("genericError")) {
+            this.mFingerprintHandler.setGenericError(config.getString("genericError"));
         }
-
 
         if (config.hasKey("title")) {
             this.dialogTitle = config.getString("title");
